@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Password</th>
+    </tr>
+    <tr th:each="user : ${allUsers}">
+        <td th:text="${user.key.id}"></td>
+        <td><a th:href="@{'/user/' + ${user.key.id}}" th:text="${user.key.username}"></a></td>
+        <td th:text="${user.key.lastname}"></td>
+        <td th:text="${user.key.email}"></td>
+        <td th:text="${user.key.roles}"></td>
+        <td th:text="${user.key.password}"></td>
+    </tr>
+
+</table>
+<form method="post" action="/admin/add">
+    <label>
+        <input type="text" name="username" placeholder="Name">
+    </label>
+    <label>
+        <input type="text" name="lastname" placeholder="Surname">
+    </label>
+    <label>
+        <input type="text" name="email" placeholder="Email">
+    </label>
+    <label>
+        <input type="text" name="password" placeholder="Password">
+    </label>
+    <input type="submit" value="Add User">
+    <label>
+        Role:
+        <select name="role">
+            <option value="ROLE_ADMIN">admin</option>
+            <option value="ROLE_USER">user</option>
+        </select>
+    </label>
+</form>
+<form method="post" action="/admin/update">
+    <label>
+        <input type="number" name="id" placeholder="User ID">
+    </label>
+    <label>
+        <input type="text" name="username" placeholder="New Name">
+    </label>
+    <label>
+        <input type="text" name="lastname" placeholder="New Surname">
+    </label>
+    <label>
+        <input type="text" name="email" placeholder="New Email">
+    </label>
+    <label>
+        <input type="text" name="password" placeholder="New Password">
+    </label>
+    <input type="submit" value="Update User">
+</form>
+<form method="post" action="/admin/delete">
+    <label>
+        <input type="number" name="id" placeholder="User ID">
+    </label>
+    <input type="submit" value="Delete User">
+</form>
+<form action="/logout" method="post">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>

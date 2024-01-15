@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о пользователя</title>
+</head>
+<body>
+
+<h1>Приветствуем тебя!</h1>
+<p>Твой Id: <span th:text="${user.id}"></span> </p>
+<p>Имя: <span th:text="${user.username}"></span> </p>
+<p>Фамилия:<span th:text="${user.lastname}"></span> </p>
+<p>Почтовый адрес:<span th:text="${user.email}"></span> </p>
+<p>Роль:<span th:text="${user.roles}"></span> </p>
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="logout">
+</form>
+
+</body>
+</html>
