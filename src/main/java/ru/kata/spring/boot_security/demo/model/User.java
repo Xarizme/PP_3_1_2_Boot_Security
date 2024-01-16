@@ -12,10 +12,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Сущность, представляющая пользователя в системе.
- * Реализует интерфейс UserDetails для интеграции с Spring Security.
- */
 
 @Getter
 @Setter
@@ -54,12 +50,6 @@ public class User implements UserDetails {
         this.enabled = true;
     }
 
-    /**
-     * Возвращает коллекцию ролей, связанных с этим пользователем.
-     * Этот метод необходим для интеграции с Spring Security.
-     *
-     * @return коллекция объектов, каждый из которых реализует GrantedAuthority
-     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

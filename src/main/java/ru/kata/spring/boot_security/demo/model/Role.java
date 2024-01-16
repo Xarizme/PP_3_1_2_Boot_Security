@@ -8,10 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
-/**
- * Сущность, представляющая роль пользователя в системе безопасности.
- * Реализует интерфейс GrantedAuthority для интеграции с Spring Security.
- */
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -29,10 +26,6 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    /**
-     * Возвращает наименование роли как разрешение (authority) в Spring Security.
-     * @return наименование роли
-     */
     @Override
     public String getAuthority() {
         return name;
