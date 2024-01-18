@@ -23,6 +23,8 @@ public class UserController {
     public String getUserPage(Model model, Principal principal) {
         String username = principal.getName();
         User user = userService.findByUsername(username);
+        String role = userService.getUserRoles(user);
+        model.addAttribute("role", role);
         model.addAttribute("user", user);
         return "userPage";
     }

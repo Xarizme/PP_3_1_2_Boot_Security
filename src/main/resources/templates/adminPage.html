@@ -15,12 +15,12 @@
         <th>Password</th>
     </tr>
     <tr th:each="user : ${allUsers}">
-        <td th:text="${user.key.id}"></td>
-        <td><a th:href="@{'/user/' + ${user.key.id}}" th:text="${user.key.username}"></a></td>
-        <td th:text="${user.key.lastname}"></td>
-        <td th:text="${user.key.email}"></td>
-        <td th:text="${user.key.roles}"></td>
-        <td th:text="${user.key.password}"></td>
+        <td th:text="${user.id}"></td>
+        <td><a th:href="@{'/user/' + ${user.username}}" th:text="${user.username}"></a></td>
+        <td th:text="${user.lastname}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.roles}"></td>
+        <td th:text="${user.password}"></td>
     </tr>
 
 </table>

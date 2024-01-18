@@ -10,6 +10,7 @@ import ru.kata.spring.boot_security.demo.servies.UserService;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -25,14 +26,8 @@ public class AdminUserController {
     @GetMapping("/admin")
     public String printAllUsers(Model model) {
 
-        Map<User,String> allUsers = userService
-                .getAllUsers()
-                .stream()
-                .sorted(Comparator.comparing(s-> s.getId()))
-                .collect(Collectors.toMap(Function.identity(),
-                        userService::getUserRoles,
-                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
-        model.addAttribute("allUsers", allUsers);
+        List<User> user = userService.getAllUsers();
+        model.addAttribute("allUsers", user);
         return "adminPage";
     }
 
