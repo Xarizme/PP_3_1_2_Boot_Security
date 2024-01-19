@@ -21,13 +21,11 @@ public class AdminController {
 
     private final RoleService roleService;
 
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(value = "")
@@ -46,7 +44,7 @@ public class AdminController {
     }
 
     @PatchMapping("/edit/{id}")
-    public String updateUser(@PathVariable("id") Long id, @ModelAttribute("user") User user, @RequestParam("roles") Long[] rolesId) {
+    public String updateUser(@PathVariable("id") Long id, @ModelAttribute("user") User user) {
         userService.update(id, user);
         return "redirect:/admin";
     }
