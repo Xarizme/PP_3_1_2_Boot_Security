@@ -2,13 +2,14 @@ package ru.kata.spring.boot_security.demo;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.model.Role;
-import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repository.RoleRepository;
-import ru.kata.spring.boot_security.demo.repository.UserRepository;
+import ru.kata.spring.boot_security.demo.models.Role;
+import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
+import ru.kata.spring.boot_security.demo.repositories.UserRepository;
+
 
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 @Component
 public class DataBaseLoader implements CommandLineRunner {
@@ -29,14 +30,19 @@ public class DataBaseLoader implements CommandLineRunner {
         this.roleRepository.save(adminrole);
         this.roleRepository.save(userrole);
 
-        User admin = new User("admin", "Admin", "admin@yandex.ru", "admin");
-        admin.setRoles(new HashSet<>(List.of(adminrole,userrole)));
+        Set<Role> adminRole = new HashSet<>(Set.of(adminrole,userrole));
+        Set<Role> userRole = new HashSet<>(Set.of(userrole));
+        Set<Role> oneMoreUser = new HashSet<>(Set.of(adminrole));
 
-        User user = new User("user", "User", "user@yandex.ru", "user");
-        user.setRoles(new HashSet<>(List.of(userrole)));
+
+        User admin = new User("admin", "Admin", 25, "admin@yandex.ru", "admin", adminRole);
+
+
+        User user = new User("user", "User", 20, "user@yandex.ru", "user", userRole);
+        User oneMore = new User("Valera", "User", 35, "user@mail.ru", "valera", oneMoreUser);
 
         this.userRepository.save(admin);
         this.userRepository.save(user);
-
+        this.userRepository.save(oneMore);
     }
 }

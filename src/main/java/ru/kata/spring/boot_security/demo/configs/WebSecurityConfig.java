@@ -6,17 +6,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import ru.kata.spring.boot_security.demo.servies.UserServiceImpl;
+import ru.kata.spring.boot_security.demo.service.UserServiceImp;
+
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserServiceImpl userServiceImpl;
+    private final UserServiceImp userServiceImp;
     private final SuccessUserHandler successUserHandler;
 
-    public WebSecurityConfig(UserServiceImpl userServiceImpl,
+    public WebSecurityConfig(UserServiceImp userServiceImp,
                              SuccessUserHandler successUserHandler) {
-        this.userServiceImpl = userServiceImpl;
+        this.userServiceImp = userServiceImp;
         this.successUserHandler = successUserHandler;
     }
 
@@ -25,8 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
-                .antMatchers("/user").hasAnyRole("USER","ADMIN")
-                .antMatchers("/admin/**","/user/**").hasRole("ADMIN")
+                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/admin/**", "/user/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().successHandler(successUserHandler)
@@ -39,7 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userServiceImpl)
+                .userDetailsService(userServiceImp)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
+
 }
