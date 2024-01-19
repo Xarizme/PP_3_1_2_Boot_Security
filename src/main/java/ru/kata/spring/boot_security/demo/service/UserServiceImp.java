@@ -6,10 +6,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImp implements UserService, UserDetailsService {
@@ -51,7 +53,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public void update(Long id, User user) {
         user.setId(id);
         userRepository.save(user);
-
     }
 
     @Override
@@ -67,5 +68,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
             throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getAuthorities());
+    }
+
+    public String getUserRole(User user) {
+        return user.getRoles().stream()
+                .map(Role ::getName).map(roleName -> roleName.replace("ROLE_", ""))
+                .sorted()
+                .collect(Collectors.joining(" "));
     }
 }

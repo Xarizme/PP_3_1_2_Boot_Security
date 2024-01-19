@@ -24,7 +24,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return getName().substring(getName().indexOf('_') + 1);
+        return getName().substring(getName().indexOf("_") + 1);
     }
 
     public Long getId() {

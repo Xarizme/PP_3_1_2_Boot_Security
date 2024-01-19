@@ -30,9 +30,12 @@ public class AdminController {
 
     @GetMapping(value = "")
     public String showAdminPanel(Model model, Principal principal) {
-        model.addAttribute("user", userService.findByEmail(principal.getName()));
+
+        User user = userService.findByEmail(principal.getName());
+        model.addAttribute("user", user);
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("roleList", roleService.getAllRoles());
+        model.addAttribute("roleUser", userService.getUserRole(user));
         model.addAttribute("newUser", new User());
         return "admin-panel";
     }
