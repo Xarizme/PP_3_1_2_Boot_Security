@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.List;
@@ -26,12 +26,15 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public void save(User user) {
         userRepository.save(user);
 
     }
 
+
     @Override
+    @Transactional
     public void deleteById(Long id) {
         userRepository.deleteById(id);
 
@@ -42,7 +45,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return userRepository.findById(id).orElse(null);
     }
 
+
     @Override
+    @Transactional
     public void update(Long id, User user) {
         user.setId(id);
         userRepository.save(user);
@@ -55,6 +60,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
         if (user == null) {
