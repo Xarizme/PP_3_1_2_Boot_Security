@@ -28,7 +28,12 @@
             </span>
         </div>
         <div class="col-1 text-white">
-            <a class="btn-link text-secondary" type="submit" href="/logout">Logout</a>
+            <form action="/logout" method="post" class="logout-form">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-link text-secondary text-decoration-none logout-button">
+                    <strong>Logout</strong>
+                </button>
+            </form>
         </div>
     </div>
 </div>
