@@ -32,22 +32,19 @@ public class DataBaseLoader implements CommandLineRunner {
         Role adminrole = new Role("ROLE_ADMIN");
         Role userrole = new Role("ROLE_USER");
 
-        this.roleRepository.save(adminrole);
-        this.roleRepository.save(userrole);
+        roleRepository.save(adminrole);
+        roleRepository.save(userrole);
 
         Set<Role> adminRole = new HashSet<>(Set.of(adminrole,userrole));
         Set<Role> userRole = new HashSet<>(Set.of(userrole));
         Set<Role> oneMoreUser = new HashSet<>(Set.of(adminrole));
 
-
         User admin = new User("admin", "Admin", 25, "admin@yandex.ru", passwordEncoder.encode("admin"), adminRole);
-
-
         User user = new User("user", "User", 20, "user@yandex.ru", passwordEncoder.encode("user"), userRole);
         User oneMore = new User("Valera", "User", 35, "user@mail.ru", passwordEncoder.encode("valera"), oneMoreUser);
 
-        this.userRepository.save(admin);
-        this.userRepository.save(user);
-        this.userRepository.save(oneMore);
+        userRepository.save(admin);
+        userRepository.save(user);
+        userRepository.save(oneMore);
     }
 }
