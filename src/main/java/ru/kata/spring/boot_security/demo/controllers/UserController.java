@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +25,8 @@ public class UserController {
     @GetMapping(value = "")
     public String showUserPage(Model model, Principal principal) {
         User user = userService.findByEmail(principal.getName());
+        model.addAttribute("roleUser",user.getRoles());
         model.addAttribute("user", user);
-        model.addAttribute("roleUser", userService.getUserRole(user));
         return "user-panel";
     }
 }
