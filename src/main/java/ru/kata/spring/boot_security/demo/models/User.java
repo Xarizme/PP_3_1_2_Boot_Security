@@ -1,10 +1,14 @@
 package ru.kata.spring.boot_security.demo.models;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -25,7 +29,7 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToMany
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -104,8 +108,18 @@ public class User implements UserDetails {
     }
 
     @Override
-    public Set<? extends GrantedAuthority> getAuthorities() {
+    public String toString() {
+        return roles.toString();
+    }
+
+    public String getShortRole() {
+        return roles.toString().substring(1, roles.toString().length() - 1);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
+//        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
     public String getPassword() {
