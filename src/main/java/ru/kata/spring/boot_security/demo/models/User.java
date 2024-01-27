@@ -107,10 +107,7 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return roles.toString();
-    }
+
 
     public String getShortRole() {
         return roles.toString().substring(1, roles.toString().length() - 1);

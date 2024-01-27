@@ -4,7 +4,7 @@ getTableUser()
 
 function getTableUser() {
     tbody.empty()
-    fetch("adminApi/users")
+    fetch("adminApi/allUser")
         .then(res => res.json())
         .then(js => {
             js.forEach(item => {

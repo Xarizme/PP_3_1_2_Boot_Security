@@ -3,7 +3,7 @@
 getCurrentUser()
 
 function getCurrentUser() {
-    fetch("userApi/authUser")
+    fetch("userApi/regUser")
         .then(res => res.json())
         .then(js => {
             $('#emailCurrentUser').append(`<span>${js.email}</span>`)
