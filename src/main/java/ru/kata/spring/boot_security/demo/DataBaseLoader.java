@@ -35,7 +35,7 @@ public class DataBaseLoader implements CommandLineRunner {
         roleRepository.save(adminrole);
         roleRepository.save(userrole);
 
-        Set<Role> adminRole = new HashSet<>(Set.of(adminrole,userrole));
+        Set<Role> adminRole = new HashSet<>(Set.of(adminrole));
         Set<Role> userRole = new HashSet<>(Set.of(userrole));
         Set<Role> oneMoreUser = new HashSet<>(Set.of(adminrole));
 
